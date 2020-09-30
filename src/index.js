@@ -13,15 +13,14 @@ class App extends React.Component {
 
   getLocation() {
     window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // setState function is extended from React.Component
-        // setState is called to UPDATE state
-        this.setState({ lat: position.coords.latitude });
-      },
-      (error) => {
-        this.setState({ errorMessage: error.message });
-      }
+      (position) => this.setState({ lat: position.coords.latitude }),
+      (error) => this.setState({ errorMessage: error.message })
     );
+  }
+
+  // called automatically when the component is first rendered on the screen
+  componentDidMount() {
+    this.getLocation();
   }
 
   render() {
