@@ -8,7 +8,7 @@ class App extends React.Component {
 
     this.getLocation();
     // direct assignment to state only to INITIALIZE state
-    this.state = { lat: null };
+    this.state = { lat: null, errorMessage: "" };
   }
 
   getLocation() {
@@ -18,12 +18,20 @@ class App extends React.Component {
         // setState is called to UPDATE state
         this.setState({ lat: position.coords.latitude });
       },
-      (error) => console.error(error)
+      (error) => {
+        this.setState({ errorMessage: error.message });
+      }
     );
   }
 
   render() {
-    return <div>Latitude: {this.state.lat}</div>;
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+    if (this.state.lat && !this.state.errorMessage) {
+      return <div>Latitude: {this.state.lat}</div>;
+    }
+    return <div>Loading...</div>;
   }
 }
 
