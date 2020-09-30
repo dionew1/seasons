@@ -3,13 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.getLocation();
-    // direct assignment to state only to INITIALIZE state
-    this.state = { lat: null, errorMessage: "" };
-  }
+  state = { lat: null, errorMessage: "" };
 
   getLocation() {
     window.navigator.geolocation.getCurrentPosition(
@@ -18,7 +12,6 @@ class App extends React.Component {
     );
   }
 
-  // called automatically when the component is first rendered on the screen
   componentDidMount() {
     this.getLocation();
   }
